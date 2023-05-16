@@ -17,7 +17,7 @@ import com.bpmn.drawer.DrawerService.DrawerService;
 import com.bpmn.drawer.entity.File;
 
 @Controller
-@CrossOrigin
+@CrossOrigin("http://localhost:8080")
 public class DrawerController {
 
 	  @Autowired
