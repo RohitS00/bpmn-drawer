@@ -1,6 +1,8 @@
 package com.bpmn.drawer.DrawerService;
 
 import java.io.IOException;
+import java.util.stream.Stream;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class DrawerServiceIMPL implements DrawerService {
 	  public File getFile(Integer id) {
 	    return drawerDAO.findById(id).get();
 	  }
+	  public Stream<File> getAllFiles() {
+		    return drawerDAO.findAll().stream();
+		  }
 
 
 
