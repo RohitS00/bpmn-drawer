@@ -10,9 +10,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,10 +66,36 @@ public class DrawerController {
 
 	      return new ResponseFile(
 	          File.getName(),
-	          fileDownloadUri);
+	          File.getId(),
+	          fileDownloadUri,
+	          File.getData());
 	    }).collect(Collectors.toList());
 
 	    return ResponseEntity.status(HttpStatus.OK).body(files);
+	  }
+	  @PutMapping(value = "/files/{id}", consumes =  MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	  public ResponseEntity<ResponseMessage> updateFile(@PathVariable Integer id, @RequestBody byte[] fileData) {
+		    String message = "";
+		    try {
+		      drawerService.update(id, fileData);
+
+		      message = "Updated the file successfully";
+		      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+		    } catch (Exception e) {
+		      message = "Could not update the file!";
+		      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+		    }
+		  }
+	  @DeleteMapping("files/{id}") // Map the delete request to the specified path variable
+	  public ResponseEntity<ResponseMessage> deleteFile(@PathVariable Integer id) {
+	    try {
+	      drawerService.deleteFile(id);
+	      String message = "File deleted successfully";
+	      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+	    } catch (Exception e) {
+	      String message = "Could not delete the file!";
+	      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+	    }
 	  }
 	}
 

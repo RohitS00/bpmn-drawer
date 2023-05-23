@@ -11,4 +11,6 @@ public interface DrawerService {
 	File store(MultipartFile file) throws IOException;
 	File getFile(Integer id);
 	Stream<File> getAllFiles();
+	void update(Integer id, byte[] fileData) throws IOException;
+	void deleteFile(Integer id);
 }

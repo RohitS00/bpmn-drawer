@@ -1,6 +1,7 @@
 package com.bpmn.drawer.DrawerService;
 
 import java.io.IOException;
+
 import java.util.stream.Stream;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +29,15 @@ public class DrawerServiceIMPL implements DrawerService {
 	  public Stream<File> getAllFiles() {
 		    return drawerDAO.findAll().stream();
 		  }
+	  public void update(Integer id, byte[] fileData) throws IOException {
+		    File file = drawerDAO.findById(id).orElse(null);
+		    if (file != null) {
+		      file.setData(fileData);
+		      drawerDAO.save(file);
+		    }
 
-
-
+	  }
+	  public void deleteFile(Integer id) {
+	        drawerDAO.deleteById(id);
+	    }
 }
