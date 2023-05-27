@@ -73,11 +73,11 @@ public class DrawerController {
 
 	    return ResponseEntity.status(HttpStatus.OK).body(files);
 	  }
-	  @PutMapping(value = "/files/{id}", consumes =  MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	  public ResponseEntity<ResponseMessage> updateFile(@PathVariable Integer id, @RequestBody byte[] fileData) {
+	  @PutMapping(value = "/files/{id}", consumes =  {MediaType.APPLICATION_OCTET_STREAM_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	  public ResponseEntity<ResponseMessage> updateFile(@PathVariable Integer id, @RequestBody MultipartFile file) {
 		    String message = "";
 		    try {
-		      drawerService.update(id, fileData);
+		      drawerService.update(id, file);
 
 		      message = "Updated the file successfully";
 		      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));

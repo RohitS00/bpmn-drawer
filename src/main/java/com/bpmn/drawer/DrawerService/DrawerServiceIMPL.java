@@ -29,14 +29,19 @@ public class DrawerServiceIMPL implements DrawerService {
 	  public Stream<File> getAllFiles() {
 		    return drawerDAO.findAll().stream();
 		  }
-	  public void update(Integer id, byte[] fileData) throws IOException {
+	  public void update(Integer id, MultipartFile fileData) throws IOException {
 		    File file = drawerDAO.findById(id).orElse(null);
 		    if (file != null) {
-		      file.setData(fileData);
+		    	System.out.println(file.getId());
+		    	System.out.println(file.getName());
+		    	System.out.println(file.getData());
+		    	System.out.println(fileData.getBytes());
+		      file.setData(fileData.getBytes());
 		      drawerDAO.save(file);
 		    }
 
 	  }
+
 	  public void deleteFile(Integer id) {
 	        drawerDAO.deleteById(id);
 	    }
