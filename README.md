@@ -42,6 +42,18 @@ Backend for BPMN Drawer.
 
 
 
+#### Delete item
+
+```http
+  Delete /localhost:8080/files/${id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
+
+
 ## Documentation
 
 [Spring Boot Documentation] https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/
