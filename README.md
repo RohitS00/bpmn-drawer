@@ -1,5 +1,5 @@
 # bpmn-drawer
-Backend for BPMN Drawer.
+Backend for BPMN Drawer using Spring Boot.
 
 
 ## API Reference
